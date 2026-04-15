@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "MSD - Hotel reservation"
 include(":app")
 include(":search_auto_complete_feature")
+include(":core")
