@@ -74,4 +74,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     //worker
     implementation(libs.work.runtime)
+    ksp(libs.androidx.hilt.compiler)
 }

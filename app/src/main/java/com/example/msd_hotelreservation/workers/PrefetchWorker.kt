@@ -31,7 +31,7 @@ class PrefetchWorker @AssistedInject constructor(
                 .first()
             if (result is NetWorkCall.Success) {
                 val trends = result.data ?: emptyList()
-                Log.d("PrefetchWorker", "doWork: $trends")
+                Log.d("bego PrefetchWorker", "doWork: $trends")
                 trends.forEach {
                     // in this case we don't care about the result of the fetch it will save in DB
                     fetchSuggestions(it).collect()
@@ -41,6 +41,7 @@ class PrefetchWorker @AssistedInject constructor(
             if (result is NetWorkCall.Error) return Result.retry()
             Result.success()
         } catch (e: Exception) {
+            Log.d("bego PrefetchWorker", "doWork Exception: $e")
             Result.retry()
         }
     }
