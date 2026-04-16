@@ -1,6 +1,6 @@
 package com.example.search_auto_complete_feature.data.network.model
 
- val mockSuggestionsData = mapOf(
+val mockData = mapOf(
     "c" to listOf(
         "Hilton Cairo Zamalek",
         "Sofitel Cairo Nile El Gezirah",
@@ -23,10 +23,7 @@ package com.example.search_auto_complete_feature.data.network.model
         "Hilton Cairo Zamalek",
         "Fairmont Nile City",
         "Kempinski Nile Hotel Cairo"
-    )
-)
-
-val mockData = mapOf(
+    ),
     "h" to listOf(
         "Hurghada Marriott Beach Resort",
         "Steigenberger Al Dau Beach Hotel",

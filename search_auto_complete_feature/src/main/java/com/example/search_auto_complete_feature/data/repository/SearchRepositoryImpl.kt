@@ -1,5 +1,6 @@
 package com.example.search_auto_complete_feature.data.repository
 
+import com.example.core.base.network.safeApiCall
 import com.example.search_auto_complete_feature.data.local.dao.SearchDao
 import com.example.search_auto_complete_feature.data.local.entity.SearchSuggestionEntity
 import com.example.search_auto_complete_feature.data.network.api.SearchApi
@@ -13,12 +14,9 @@ class SearchRepositoryImpl @Inject constructor(
     private val dao: SearchDao,
     private val gson: Gson
 ) : SearchRepository {
-    override suspend fun preFetchSuggestions(query: String): List<String> {
-        return api.preFetchSuggestions(query)
-    }
 
     override suspend fun getTrendingQueries(): List<String> {
-       return api.getTrendingQueries()
+        return safeApiCall { api.getTrendingQueries() }
     }
 
     override suspend fun fetchSuggestions(query: String): List<String> {
@@ -28,13 +26,18 @@ class SearchRepositoryImpl @Inject constructor(
         if (cached != null) {
             // update time in cache
             dao.saveSuggestions(cached.copy(lastUsedTimestamp = System.currentTimeMillis()))
-            return gson.fromJson(cached.suggestionsJson, object : TypeToken<List<String>>() {}.type)
+            return safeApiCall {
+                gson.fromJson(
+                    cached.suggestionsJson,
+                    object : TypeToken<List<String>>() {}.type
+                )
+            }
         }
         // get from api if not in cache
         val remoteData = api.fetchSuggestions(q)
         if (remoteData.isNotEmpty()) {
             dao.saveSuggestions(SearchSuggestionEntity(q, gson.toJson(remoteData)))
         }
-        return remoteData
+        return safeApiCall { remoteData }
     }
 }
