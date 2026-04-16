@@ -63,6 +63,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation(project(":hotel_list_feature"))
     implementation(project(":search_auto_complete_feature"))
+    implementation(project(":core"))
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.work)
