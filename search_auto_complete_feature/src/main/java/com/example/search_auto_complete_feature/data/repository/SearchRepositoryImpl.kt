@@ -26,12 +26,10 @@ class SearchRepositoryImpl @Inject constructor(
         if (cached != null) {
             // update time in cache
             dao.saveSuggestions(cached.copy(lastUsedTimestamp = System.currentTimeMillis()))
-            return safeApiCall {
-                gson.fromJson(
+            return gson.fromJson(
                     cached.suggestionsJson,
                     object : TypeToken<List<String>>() {}.type
                 )
-            }
         }
         // get from api if not in cache
         val remoteData = api.fetchSuggestions(q)
