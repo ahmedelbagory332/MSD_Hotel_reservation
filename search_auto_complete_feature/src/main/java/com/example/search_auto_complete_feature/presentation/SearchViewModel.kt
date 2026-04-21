@@ -55,7 +55,7 @@ class SearchViewModel @Inject constructor(
                         updateState {
                             it.copy(
                                 isLoading = false,
-                                suggestions = result.data ?: emptyList()
+                                suggestions = result.data?.toList() ?: emptyList()
                             )
                         }
                     }
