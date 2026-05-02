@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.hotel_details_feature.presentation.HotelDetailsScreen
 import com.example.hotel_list_feature.presentation.HotelListScreen
 import com.example.msd_hotelreservation.navigation.ScreenDestinations
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,12 @@ fun App() {
     ) {
 
         composable<ScreenDestinations.HotelListScreen> {
-            HotelListScreen()
+            HotelListScreen{
+                navController.navigate(ScreenDestinations.HotelDetailsScreen)
+            }
+        }
+        composable<ScreenDestinations.HotelDetailsScreen> {
+            HotelDetailsScreen()
         }
 
     }

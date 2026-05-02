@@ -6,5 +6,7 @@ sealed class ScreenDestinations {
 
     @Serializable
     data object HotelListScreen : ScreenDestinations()
+    @Serializable
+    data object HotelDetailsScreen : ScreenDestinations()
 
 }

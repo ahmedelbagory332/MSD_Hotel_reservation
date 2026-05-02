@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -27,7 +28,8 @@ import com.example.search_auto_complete_feature.presentation.SearchAutoComplete
 
 @Composable
 fun HotelListScreen(
-    viewModel: HotelViewModel = hiltViewModel()
+    viewModel: HotelViewModel = hiltViewModel(),
+    onHotelClick: () -> Unit
 ) {
     val uiState by viewModel.state.collectAsState()
     val listState = rememberLazyListState()
@@ -42,7 +44,16 @@ fun HotelListScreen(
 
         when {
             uiState.isLoading && uiState.hotels.isEmpty() -> {
-               CircularProgressIndicator()
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
             }
 
             uiState.error.isNotEmpty() -> {
@@ -66,7 +77,9 @@ fun HotelListScreen(
                         hotels = uiState.hotels,
                         listState = listState,
                         context = context
-                    )
+                    ) {
+                        onHotelClick()
+                    }
                 }
             }
         }

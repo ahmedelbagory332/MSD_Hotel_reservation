@@ -14,7 +14,8 @@ fun HotelList(
     listState: LazyListState,
     hotels: List<Hotel>,
     context: Context,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onHotelClick: () -> Unit
 ) {
     LazyColumn(
         state = listState,
@@ -24,7 +25,9 @@ fun HotelList(
             items = hotels,
             key = { it.id }
         ) { hotel ->
-            HotelItem(hotel = hotel, context = context)
+            HotelItem(hotel = hotel, context = context) {
+                onHotelClick()
+            }
         }
     }
 }

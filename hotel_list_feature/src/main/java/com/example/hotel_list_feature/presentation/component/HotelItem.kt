@@ -1,6 +1,7 @@
 package com.example.hotel_list_feature.presentation.component
 
 import android.content.Context
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,12 +26,16 @@ import com.example.hotel_list_feature.data.network.model.Hotel
 fun HotelItem(
     hotel: Hotel,
     context: Context,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onHotelClick: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(12.dp)
+            .clickable {
+                onHotelClick()
+            }
     ) {
         AsyncImage(
             model = hotel.image,
